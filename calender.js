@@ -110,9 +110,6 @@ function showCalendar(month, year) {
     
 
 }
-document.getElementsByClassName('td').addEventListener('mouseover',()=>{
-
-})
 
 const dates = require('date-and-time')
 var now = new Date();
