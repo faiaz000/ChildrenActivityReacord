@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <script>window.$ = window.jQuery = require('jquery');</script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <!---<script src="node_modules/popper.js/dist/popper.js"></script>-->
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+
+<body>
+  <br>
+  <br>
+  <div class="container">
+
+
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">Activity</th>
+          <th scope="col">Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="activitytable">
+       
+
+      </tbody>
+    </table>
+  </div>
+</body>
+<script>
+  const electron = require('electron')
+  const { ipcRenderer } = electron
+  window.onload = function () {
+    ipcRenderer.send('senddata')
+
+    ipcRenderer.on('getdata', (e, activity) => {
+      activity.forEach((item) => {
+        let d = new Date(item.date)
+        var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+        //console.log(datestring)
+        //document.getElementById('selecteddate').valueAsDate = Date.parse(d)
+        let activitytablerow = document.getElementById('activitytable')
+        activitytablerow.innerHTML += `
+          <tr>
+            <th scope="row">${item.id}</th>
+            <td>${item.name}</td>
+            <td>${item.description}</td>
+            <td>${datestring}</td>
+            <td><button style ="margin:2px" class="btn btn-primary"> Edit </button><button class="btn btn-danger"> Delete</button></td>
+          </tr> `
+      })
+    })
+  }
+</script>
+
+</html>

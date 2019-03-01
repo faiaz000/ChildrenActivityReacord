@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "electron": "electron .",
+    "rebuild": "electron-rebuild -f -w sqlite3"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "bootstrap-datepicker": "^1.8.0",
+    "date-and-time": "^0.6.3",
+    "electron": "^4.0.5",
+    "knex": "^0.16.3",
+    "popper.js": "^1.14.7",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.4"
+  }
+}

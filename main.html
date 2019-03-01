@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Children Activity</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>td:hover { background: #f4425c !important; }</style>
+</head>
+<body>
+    <div class="container">
+        <h1 style = "color : red " id ="presentmonth"></h1>
+    </div>
+    <div class="container col mt-5 ">
+            <div class="card">
+                <h3 class="card-header" id="monthAndYear"></h3>
+                <table class="table table-bordered table-responsive-sm" id="calendar">
+                    <thead>
+                    <tr>
+                        <th>Sun</th>
+                        <th>Mon</th>
+                        <th>Tue</th>
+                        <th>Wed</th>
+                        <th>Thu</th>
+                        <th>Fri</th>
+                        <th>Sat</th>
+                    </tr>
+                    </thead>
+        
+                    <tbody id="calendar-body">
+        
+                    </tbody>
+                </table>
+        
+                <div class="form-inline">
+        
+                    <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Previous</button>
+        
+                    <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Next</button>
+                </div>
+                <br/>
+                
+            </div>
+        </div>
+        <br>
+        <br>
+   <div class="container">
+    <button  style="float: right" class=" btn btn-primary" id="today" type="click">  Today  </button>
+    <br>
+    <br>
+    <button  style="float: right" class=" btn btn-primary" id="test" type="click">Yesterday</button>
+</div> 
+ 
+        
+
+  
+  
+    
+
+    <script src="calender.js"></script>
+    <script>
+      
+    </script>
+</body>
+</html>
