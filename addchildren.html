@@ -98,6 +98,7 @@
     const { ipcRenderer } = electron
     window.onload = function(){
       //console.log("hello");
+      document.getElementById('selecteddate').valueAsDate = now
       ipcRenderer.send('activitywindowloaded')
       
     }
@@ -111,7 +112,7 @@
       
     })
 
-    document.getElementById('selecteddate').valueAsDate = now
+   
 
     function checkboxToDes(grade,name){
       console.log(grade,name)
@@ -164,7 +165,14 @@
     var dateval = now
     var activity = new Activity(description,dateval,id)
     ipcRenderer.send('addactivity',activity);
+    
   })
+  peoplelist = [];
+  $('input[type=checkbox]').each(function() 
+  { 
+          this.checked = false; 
+  }); 
+  document.getElementById('participants').innerText = ""
   //console.log(activity.date)
   //ipcRenderer.send('addactivity','hello');
  })

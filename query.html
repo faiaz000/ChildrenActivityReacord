@@ -19,12 +19,11 @@
   <div class="container">
 
 
-    <table class="table">
+    <table id = "myTable" class="table">
       <thead class="thead-light">
         <tr>
-          
           <th scope="col">Name</th>
-          <th scope="col">Activity</th>
+          <th id="Activity" scope="col">Activity</th>
           <th scope="col">Date</th>
           <th scope="col">Actions</th>
         </tr>
@@ -43,13 +42,14 @@
     ipcRenderer.send('senddata')
 
     ipcRenderer.on('getdata', (e, activity) => {
+      var count =0
       activity.forEach((item) => {
         let d = new Date(item.date)
         var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
         //console.log(datestring)
         //document.getElementById('selecteddate').valueAsDate = Date.parse(d)
         let activitytablerow = document.getElementById('activitytable')
-        var count =0
+       
         activitytablerow.innerHTML += `
           
           <tr id = ${count} >
@@ -57,29 +57,35 @@
             <td>${item.name}</td>
             <td>${item.description}</td>
             <td>${datestring}</td>
-            <td><button style ="margin:2px" class="btn btn-primary"> Edit </button><button id="delete${count}" onclick= "deletefunc(${item.id},this)" ="${item.id}" class="btn btn-danger"> Delete</button></td>
+            <td><button style ="margin:2px" id="edit${count}" onclick= "editfunc(${item.id},this)"  class="btn btn-primary col-md-4"> Edit </button><button id="delete${count}" onclick= "deletefunc(${item.id},this)" class="btn btn-danger"> Delete</button></td>
           </tr> 
           
           `
           count++;
       })
+      
     })
+  }
+  function editfunc(itemId,pval){
+    //console.log(description)
   }
   function deletefunc(itemId,pval){
   var result = confirm("Are you sure you want to delete the selected item ?");
   if (result) {
     //Logic to delete the item
     console.log(itemId)
+    console.log(document.getElementById(pval.id).parentElement.parentElement)
+    document.getElementById(pval.id).parentElement.parentElement.remove();
     ipcRenderer.send('deleteitem',itemId)
-    ipcRenderer.on('deleted',(e,msg) => {
-      console.log(msg)
-    } )
-    document.getElementById(pval.id).parentElement.parentElement.remove()
-  }
     
-   
+    
+    alert('deleted')
   }
+  }
+
+ 
+ 
 
 </script>
-
+<script src="sort.js"></script>
 </html>

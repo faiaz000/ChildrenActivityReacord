@@ -96,8 +96,9 @@ ipcMain.on('addactivity', (e, activity) => {
 ipcMain.on('deleteitem',(e,id) => {
     console.log(id)
     knex('Activity').where({ id: id }).del().then( () => {
-        queryWIndow.webContents.send('deleted',"activity deleted")
+        console.log('deleted')
     })
+    //queryWIndow.webContents.send('deleted',"activity deleted")
 })
 app.on('window-all-closed', () => app.quit());
 
