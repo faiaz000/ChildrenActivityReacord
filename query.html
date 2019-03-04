@@ -22,7 +22,7 @@
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th scope="col">Id</th>
+          
           <th scope="col">Name</th>
           <th scope="col">Activity</th>
           <th scope="col">Date</th>
@@ -49,17 +49,37 @@
         //console.log(datestring)
         //document.getElementById('selecteddate').valueAsDate = Date.parse(d)
         let activitytablerow = document.getElementById('activitytable')
+        var count =0
         activitytablerow.innerHTML += `
-          <tr>
-            <th scope="row">${item.id}</th>
+          
+          <tr id = ${count} >
+            <th hidden scope="row">${item.id}</th>
             <td>${item.name}</td>
             <td>${item.description}</td>
             <td>${datestring}</td>
-            <td><button style ="margin:2px" class="btn btn-primary"> Edit </button><button class="btn btn-danger"> Delete</button></td>
-          </tr> `
+            <td><button style ="margin:2px" class="btn btn-primary"> Edit </button><button id="delete${count}" onclick= "deletefunc(${item.id},this)" ="${item.id}" class="btn btn-danger"> Delete</button></td>
+          </tr> 
+          
+          `
+          count++;
       })
     })
   }
+  function deletefunc(itemId,pval){
+  var result = confirm("Are you sure you want to delete the selected item ?");
+  if (result) {
+    //Logic to delete the item
+    console.log(itemId)
+    ipcRenderer.send('deleteitem',itemId)
+    ipcRenderer.on('deleted',(e,msg) => {
+      console.log(msg)
+    } )
+    document.getElementById(pval.id).parentElement.parentElement.remove()
+  }
+    
+   
+  }
+
 </script>
 
 </html>
