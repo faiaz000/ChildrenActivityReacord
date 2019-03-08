@@ -53,7 +53,7 @@
   document.getElementById('add').addEventListener('click',()=>{
     var todaysDate = dates.format(now, 'MMM');  
 
-    ipcRenderer.send('Date',todaysDate);
+    ipcRenderer.send('Date',"fromquery");
   })
   document.getElementById('dateheader').innerText = dates.format(now, 'MMM DD');  
   window.onload = function () {

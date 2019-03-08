@@ -51,9 +51,9 @@
         ipcRenderer.send('back')
     })
     document.getElementById('add').addEventListener('click',()=>{
-        var todaysDate = dates.format(now, 'MMM');  
+        //var todaysDate = dates.format(now, 'MMM');  
     
-        ipcRenderer.send('Date',todaysDate);
+        ipcRenderer.send('fromepisodes','fromepisodes');
       })
     window.onload = function () {
         //console.log("hello");

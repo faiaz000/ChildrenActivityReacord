@@ -26,13 +26,30 @@ app.on('ready', () => {
     mainWindow.loadURL(`file://${__dirname}/main.html`);
 })
 
-ipcMain.on('Date', (e, todaysDate) => {
+ipcMain.on('Date', (e, fromquery ) => {
     thisdate = 'today'
+    if(fromquery!="fromquery"){
+        epi ="today"
+    }
+    else {
+        epi="fromquery"
+    }
+    
     mainWindow.loadURL(`file://${__dirname}/addchildren.html`)
     mainWindow.webContents.on('did-finish-load', () => {
-        mainWindow.webContents.executeJavaScript(`document.getElementById('activityarea').innerText=""`, userGesture = true, function () {
+        mainWindow.webContents.executeJavaScript(``, userGesture = true, function () {
         })
     })
+})
+let epi;
+ipcMain.on('fromepisodes',(e,fromepisodes)=>{
+    thisdate = 'today',
+    epi=fromepisodes;
+    console.log(epi)
+    mainWindow.webContents.loadURL(`file://${__dirname}/addchildren.html`)
+});
+ipcMain.on('checkforbcakfromepisodes',(e)=>{
+    mainWindow.webContents.send('checkbackforepisodes',epi)
 })
 ipcMain.on('back', () => {
     mainWindow.loadURL(`file://${__dirname}/main.html`);
@@ -40,8 +57,9 @@ ipcMain.on('back', () => {
 ipcMain.on('backonepisodes', () => {
     mainWindow.loadURL(`file://${__dirname}/episodes.html`);
 })
-ipcMain.on('previousdate', (e, previousdate) => {
-    thisdate = 'yesterday'
+ipcMain.on('previousdate', (e) => {
+    thisdate = 'yesterday';
+    epi = "previous";
     mainWindow.loadURL(`file://${__dirname}/addchildren.html`);
 })
 ipcMain.on('checkdate', () => {
@@ -57,6 +75,9 @@ ipcMain.on('openrecord', (e, givendate) => {
     querydate = givendate;
     mainWindow.loadURL(`file://${__dirname}/query.html`)
     //queryWIndow.webContents.send('senddata',querydate)
+})
+ipcMain.on('loadquery',(e)=>{
+    mainWindow.loadURL(`file://${__dirname}/query.html`)
 })
 
 ipcMain.on('episodes', (e) => {
@@ -117,15 +138,20 @@ ipcMain.on('episodewindowloaded', (e, presentmonth) => {
 
 ipcMain.on('showDetails', (e, name) => {
     e.preventDefault()
-    nameforquery =name
+    if(name!=""){
+
+        nameforquery =name
+    }
+    
     mainWindow.loadURL(`file://${__dirname}/showepisodedetails.html`)
  })
-ipcMain.on('showepisodedetails',(e,name)=>{
+ipcMain.on('showepisodedetails',(e)=>{
 
     e.preventDefault()
+    mainWindow.webContents.send('showname',nameforquery)
     let presentdate = new Date()
     let currentdate = dates.format(presentdate, 'YYYY-MM')
-    let queryid;
+    
     let str = currentdate + '%'
 
     let episoderesult= knex.raw('select name,date,description from Activity  as a inner join Children as c on c.id=a.childrenid WHERE a.date LIKE ? and c.name = ?',[str,nameforquery])

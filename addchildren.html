@@ -37,7 +37,7 @@
 
         <h2>Add activity</h2>
 
-        <textarea id="activityarea" style="width:400px; height:200px" id="comment" rows="10"></textarea>
+        <textarea id="areaactivity" style="width:400px; height:200px" id="comment" rows="10"></textarea>
       </div>
 
       <div class="container">
@@ -102,6 +102,7 @@
 
     //window.$ = window.jQuery = require('jquery')
     const electron = require('electron');
+    const { ipcRenderer } = electron
     const Activity = require('./Activity');
     const dates = require('date-and-time')
     let showdate = 'today'
@@ -110,11 +111,33 @@
     let childrenids=[];
     var peoplelist = [];
     let yesterday = dates.addDays(now, -1);
+    let fromepisodes;
+   
     document.getElementById('back').addEventListener('click',(e)=>{
       e.preventDefault();
-      ipcRenderer.send('back')
-    })
-    const { ipcRenderer } = electron
+     ipcRenderer.send('checkforbcakfromepisodes');
+     
+     
+    });
+    ipcRenderer.on('checkbackforepisodes',(e,f)=>{
+      console.log(f) 
+      fromepisodes =f 
+      if(fromepisodes=="fromepisodes"){
+        
+        ipcRenderer.send('episodes')
+        }
+        else if (fromepisodes=="fromshowdetails"){
+
+          ipcRenderer.send('showDetails',"")
+        }
+       else if (fromepisodes=="fromquery"){
+         ipcRenderer.send('loadquery')
+       }
+        else { 
+          ipcRenderer.send('back')
+        }
+      });
+  
     window.onload = function () {
 
      ipcRenderer.send('checkdate')
@@ -154,7 +177,7 @@
     
       var selecteddate = document.getElementById('selecteddate').value
       document.getElementById('dateheader').innerText = "Selected Date : "+ selecteddate
-      var text = document.getElementById('activityarea').value
+      var text = document.getElementById('areaactivity').value
       document.getElementById('activityparagraph').innerText = text
       let index=0
       showchildren.forEach((item)=>{
@@ -193,7 +216,7 @@
 
         var student = person.attr('value')
         var id = person.attr('id')
-        var description = document.getElementById('activityarea').value
+        var description = document.getElementById('areaactivity').value
         var dateval = selecteddate
         var activity = new Activity(description, dateval, id)
         ipcRenderer.send('addactivity', activity);
@@ -202,7 +225,7 @@
       $('input[type=checkbox]').each(function () {
         this.checked = false;
       });
-      document.getElementById('activityparagraph').innerText = ""
+      
     })
   </script>
 

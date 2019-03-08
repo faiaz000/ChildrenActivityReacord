@@ -12,9 +12,10 @@
     <button id='back' class="btn">Back</button>
     <div class="container">
         <h2 id="name">Name</h2>
+        <button id ="add" style="float:right" class="btn btn-info">Add Activity</button>
     </div>
-    
-    
+    <br>
+    <br>
     <div class="container">
         <h3>Episode details</h3>
         <br>
@@ -33,21 +34,26 @@
     <script>
             const electron = require('electron')
             const { ipcRenderer } = electron;
+            const dates = require('date-and-time')
+            var now = new Date();
             let nm;
             
             window.onload = function(){
                 
-               // console
-               ipcRenderer.send('showepisodedetails',"von") 
-                //document.getElementById('episodetablebody').innerHTML= " "
+               ipcRenderer.send('showepisodedetails') 
+                
             }
-            
+            document.getElementById('add').addEventListener('click', () => {
+               // var todaysDate = dates.format(now, 'MMM');  
+
+               ipcRenderer.send('fromepisodes','fromshowdetails');
+            })
             document.getElementById('back').addEventListener('click',(e)=>{
-                $("tbody").children().remove()
+                //$("tbody").children().remove()
                 e.preventDefault();
                 ipcRenderer.send('backonepisodes')
               })
-            ipcRenderer.on('bla',(e,name)=>{
+            ipcRenderer.on('showname',(e,name)=>{
                 document.getElementById('name').innerText = name
             })
             ipcRenderer.on('childactivities',(e,activities)=>{

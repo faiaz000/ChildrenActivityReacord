@@ -70,7 +70,7 @@ function showCalendar(month, year) {
                 cell.addEventListener('click', (e) => {
                     //console.log(e.target.id)
                     let cells = document.getElementsByClassName("bg-info")
-                    console.log(cells)
+                   
                     if (cells) {
                         for (var item of cells) {
                             let box = document.getElementById(item.id)
@@ -111,18 +111,18 @@ var now = new Date();
 document.getElementById('presentmonth').innerText = dates.format(now, 'MMM DD');  
 document.getElementById('today').addEventListener('click',()=>{
     
-    var todaysDate = dates.format(now, 'MMM');  
+   // var todaysDate = dates.format(now, 'MMM');  
 
-    ipcRenderer.send('Date',todaysDate);
+    ipcRenderer.send('Date');
 
 });
 document.getElementById('yesterday').addEventListener('click',()=>{
     
-    var yesterdaysDate = dates.format(now, 'MMM');  
+    //var yesterdaysDate = dates.format(now, 'MMM');  
 
-    console.log(yesterdaysDate)
+    //console.log(yesterdaysDate)
 
-    ipcRenderer.send('previousdate',yesterdaysDate);
+    ipcRenderer.send('previousdate');
 
 });
 
