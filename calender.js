@@ -101,14 +101,9 @@ function showCalendar(month, year) {
                 row.appendChild(cell);
                 date++;
             }
-
-
         }
-
         tbl.appendChild(row); // appending each row into calendar body.
     }
-    
-
 }
 
 const dates = require('date-and-time')
@@ -117,11 +112,21 @@ document.getElementById('presentmonth').innerText = dates.format(now, 'MMM DD');
 document.getElementById('today').addEventListener('click',()=>{
     
     var todaysDate = dates.format(now, 'MMM');  
-    //console.log(todaysDate);
 
     ipcRenderer.send('Date',todaysDate);
 
 });
-document.getElementById('test').addEventListener('click',()=>{
-    ipcRenderer.send('show');
+document.getElementById('yesterday').addEventListener('click',()=>{
+    
+    var yesterdaysDate = dates.format(now, 'MMM');  
+
+    console.log(yesterdaysDate)
+
+    ipcRenderer.send('previousdate',yesterdaysDate);
+
+});
+
+
+document.getElementById('episodes').addEventListener('click',()=>{
+    ipcRenderer.send('episodes');
 })

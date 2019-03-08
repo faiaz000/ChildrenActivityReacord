@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <title>Epsoode Details</title>
+</head>
+<body>
+    <button id='back' class="btn">Back</button>
+    <div class="container">
+        <h2 id="name">Name</h2>
+    </div>
+    
+    
+    <div class="container">
+        <h3>Episode details</h3>
+        <br>
+        <table id="myTable" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Activity</th>
+
+                    <th  scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody id="episodetablebody">
+            </tbody>
+        </table>
+    </div>
+    <script>
+            const electron = require('electron')
+            const { ipcRenderer } = electron;
+            let nm;
+            
+            window.onload = function(){
+                
+               // console
+               ipcRenderer.send('showepisodedetails',"von") 
+                //document.getElementById('episodetablebody').innerHTML= " "
+            }
+            
+            document.getElementById('back').addEventListener('click',(e)=>{
+                $("tbody").children().remove()
+                e.preventDefault();
+                ipcRenderer.send('backonepisodes')
+              })
+            ipcRenderer.on('bla',(e,name)=>{
+                document.getElementById('name').innerText = name
+            })
+            ipcRenderer.on('childactivities',(e,activities)=>{
+                activities.forEach((activity)=>{
+                    document.getElementById('episodetablebody').innerHTML += `
+                <tr>
+                    <td>${activity.description}</td>
+                    <td>${activity.date}</td>
+                </tr>
+                `
+                })
+                
+            })
+    </script>
+</body>
+</html>

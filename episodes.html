@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <!---<script src="node_modules/popper.js/dist/popper.js"></script>-->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <button id="back" class="btn">Back</button>
+    <div class="container">
+        <h1 style = "color : red " id="dateheader"></h1>
+    </div>
+    <br>
+    <div class="container">
+        <h2>Episodes</h2>
+        <button id = "add" style="float:right"class="btn btn-info">Add activity </button>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <table id="myTable" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+
+                    <th id="Episodes" scope="col">Episodes</th>
+
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="episodetablebody">
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    const dates = require('date-and-time')
+    const electron = require('electron')
+    const { ipcRenderer } = electron
+    let now = new Date()
+    document.getElementById('back').addEventListener('click',(e)=>{
+        e.preventDefault();
+        ipcRenderer.send('back')
+    })
+    document.getElementById('add').addEventListener('click',()=>{
+        var todaysDate = dates.format(now, 'MMM');  
+    
+        ipcRenderer.send('Date',todaysDate);
+      })
+    window.onload = function () {
+        //console.log("hello");
+       
+        document.getElementById('dateheader').innerText = dates.format(now, 'MMM DD');
+        let today = dates.format(now, 'YYYY-MM');
+        
+        ipcRenderer.send('episodewindowloaded', today)
+
+    }
+    ipcRenderer.on('getepisodes', (e, episodes) => {
+
+        let tbody = document.getElementById('episodetablebody')
+        tbody.innerHTML += `
+        <tr>
+            <td>${episodes.name}</td>
+            <td>${episodes.episodes}</td>
+            <td><button class="btn" style ="margin:2px" value="${episodes.name}" onclick= "showDetails(this.value)" >Show Details</td>
+        </tr>
+        `
+
+    })
+    function showDetails(value) {
+
+        //console.log(value)
+        ipcRenderer.send('showDetails', value)
+    }
+
+</script>
+
+<script src="sort.js"></script>
+
+</html>

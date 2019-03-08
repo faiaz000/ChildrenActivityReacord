@@ -14,10 +14,16 @@
 </head>
 
 <body>
+  <button id="back" class="btn">Back</button>
+  <div class="container"><h1 style = "color : red " id ="dateheader"></h1></div>
+  <br>
+  <div class="container">
+    <h2>Activity Records</h2>
+    <button id = "add" style="float:right"class="btn btn-info">Add activity </button>
+  </div>
   <br>
   <br>
   <div class="container">
-
 
     <table id = "myTable" class="table">
       <thead class="thead-light">
@@ -38,6 +44,18 @@
 <script>
   const electron = require('electron')
   const { ipcRenderer } = electron
+  const dates = require('date-and-time')
+  var now = new Date();
+  document.getElementById('back').addEventListener('click',(e)=>{
+    e.preventDefault();
+    ipcRenderer.send('back')
+  })
+  document.getElementById('add').addEventListener('click',()=>{
+    var todaysDate = dates.format(now, 'MMM');  
+
+    ipcRenderer.send('Date',todaysDate);
+  })
+  document.getElementById('dateheader').innerText = dates.format(now, 'MMM DD');  
   window.onload = function () {
     ipcRenderer.send('senddata')
 
@@ -57,7 +75,7 @@
             <td>${item.name}</td>
             <td>${item.description}</td>
             <td>${datestring}</td>
-            <td><button style ="margin:2px" id="edit${count}" onclick= "editfunc(${item.id},this)"  class="btn btn-primary col-md-4"> Edit </button><button id="delete${count}" onclick= "deletefunc(${item.id},this)" class="btn btn-danger"> Delete</button></td>
+            <td><button style ="margin:2px" id="edit${count}" onclick= "editfunc(this)"  class="btn btn-primary col-md-4"> Edit </button><button id="delete${count}" onclick= "deletefunc(${item.id},this)" class="btn btn-danger"> Delete</button></td>
           </tr> 
           
           `
@@ -66,8 +84,18 @@
       
     })
   }
-  function editfunc(itemId,pval){
+  function editfunc(pval){
+   
+
+    let td =document.getElementById(pval.id).parentElement.parentElement
+    let test = document.getElementById(td.id).children
+    //console.log(test)
+   
+    let id = test[0].innerHTML
+    let name = test[1].innerHTML
+    let description = test[2].innerHTML
     //console.log(description)
+    ipcRenderer.send('edit',id,name,description)
   }
   function deletefunc(itemId,pval){
   var result = confirm("Are you sure you want to delete the selected item ?");
@@ -77,15 +105,9 @@
     console.log(document.getElementById(pval.id).parentElement.parentElement)
     document.getElementById(pval.id).parentElement.parentElement.remove();
     ipcRenderer.send('deleteitem',itemId)
-    
-    
     alert('deleted')
   }
   }
-
- 
- 
-
 </script>
 <script src="sort.js"></script>
 </html>

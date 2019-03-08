@@ -6,177 +6,204 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  
+
 
 
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-<script>window.$ = window.jQuery = require('jquery');</script>
+  <script>window.$ = window.jQuery = require('jquery');</script>
   <script src="node_modules/jquery/dist/jquery.js"></script>
   <!---<script src="node_modules/popper.js/dist/popper.js"></script>-->
-  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script> 
-  
+  <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
 
 
 </head>
 
 <body>
-  <h1>CHILDREN ACTIVITY</h1>
+  <button id="back" class="btn">Back</button>
+ 
+  <br>
+  <br>
 
   <div class="container">
     <form>
-      <div>
-        <input id="selecteddate"  type="date">
-       
-      </div>
-      <div id="grade1" class="container">
-          <h4>grade1</h4>
-        
-      </div>
-      <div id="grade2" class="container">
-          <h4>grade2</h4>
-       
-      </div>
-      <div id="grade3" class="container">
-          <h4>grade3</h4>
-      </div>
-      <div id="grade4" class="container">
-          <h4>grade4</h4>
-       
-      </div>
+      <div style ="float:left"class="container">
+        <input class="form-control col-lg-3 col-md-3 "id="selecteddate" type="date">
 
+      </div>
       
+
       <div class="container ">
 
-        <h2>Activities</h2>
-        <textarea id ="activityarea" style="width: 500px" id="comment" rows="10"></textarea>
+        <h2>Add activity</h2>
+
+        <textarea id="activityarea" style="width:400px; height:200px" id="comment" rows="10"></textarea>
+      </div>
+
+      <div class="container">
+        <button id="addtask" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          Submit
+        </button>
       </div>
       
-      
-      <button id="addtask" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Submit
-      </button>
       <div class="modal" id="exampleModal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Confirm Box</h5>
-                <button id="dismisstop"type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <h2>Activity</h2>
-                <h3 id="dateheader"></h3>
-                <h4 id="participants"></h4>
-                <p id = "activityparagraph"></p>
-              </div>
-              <div class="modal-footer">
-                  
-        
-              <button id="confirm" class="btn btn-primary"style="float: right" data-dismiss="modal" type="submit">Confirm</button>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Box</h5>
+              <button id="dismisstop" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+              <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2>Activity</h2>
+              <h4 id="dateheader"></h4>
+              <h4 id="participants">Participants: </h4>
+              <div id="grade1" class="container">
+                  <h4>grade1</h4>
+          
+                </div>
+                <div id="grade2" class="container">
+                  <h4>grade2</h4>
+          
+                </div>
+                <div id="grade3" class="container">
+                  <h4>grade3</h4>
+                </div>
+                <div id="grade4" class="container">
+                  <h4>grade4</h4>
+          
+                </div>
+          
+              <h2>Description</h2>
               
-                    
-              <button  id ="dismiss"  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
+              <textarea style="width:400px; height:200px"id="activityparagraph"  id="comment" ></textarea>
+            </div>
+            <div class="modal-footer">
+
+
+              <button id="confirm" class="btn btn-primary" style="float: right" data-dismiss="modal"
+                type="submit">Confirm</button>
+
+
+              <button id="dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
-
         </div>
+
+      </div>
     </form>
-    
+
   </div>
 
 
   <script>
 
-  
+
     //window.$ = window.jQuery = require('jquery')
     const electron = require('electron');
-   const Activity = require('./Activity');
+    const Activity = require('./Activity');
+    const dates = require('date-and-time')
+    let showdate = 'today'
     var now = new Date();
-    console.log(now);
+    let showchildren=[];
+    let childrenids=[];
+    var peoplelist = [];
+    let yesterday = dates.addDays(now, -1);
+    document.getElementById('back').addEventListener('click',(e)=>{
+      e.preventDefault();
+      ipcRenderer.send('back')
+    })
     const { ipcRenderer } = electron
-    window.onload = function(){
-      //console.log("hello");
-      document.getElementById('selecteddate').valueAsDate = now
-      ipcRenderer.send('activitywindowloaded')
-      
-    }
-    ipcRenderer.on('hello',(e,childrenlist)=>{
-      childrenlist.forEach((child)=>{
-        //console.log(child);
-        let div = document.getElementById(child.grade)
-        div.innerHTML += `<label class="checkbox-inline"><input id="${child.id}" name= "people" type="checkbox" onchange="toggleCheckbox(this,$(this))" value="${child.name}"> ${child.name} </label>`
+    window.onload = function () {
 
+     ipcRenderer.send('checkdate')
+     ipcRenderer.on('showdate',(e,d)=>{
+       showdate=d
+       if(showdate=='yesterday'){
+       
+        document.getElementById('selecteddate').valueAsDate = yesterday
+        
+       }
+       else{
+        document.getElementById('selecteddate').valueAsDate = now
+
+       }
+     })
+     ipcRenderer.send('activitywindowloaded')
+   
+    
+     ipcRenderer.on('hello', (e, childrenlist) => {
+       let testindex =0
+       childrenlist.forEach((child) => {
+         //console.log(child);
+         
+         let div = document.getElementById(child.grade)
+         div.innerHTML += `<label class="checkbox-inline"><input id="${child.id}" name= "people" type="checkbox"  value="${child.name}"> ${child.name} </label>`
+         showchildren.push(child.name)
+        childrenids.push(child.id)
+       })
+       
+     });
+     
+    }
+
+   
+   
+    document.getElementById('addtask').addEventListener('click', () => {
+    
+      var selecteddate = document.getElementById('selecteddate').value
+      document.getElementById('dateheader').innerText = "Selected Date : "+ selecteddate
+      var text = document.getElementById('activityarea').value
+      document.getElementById('activityparagraph').innerText = text
+      let index=0
+      showchildren.forEach((item)=>{
+        if(text.includes(item)){
+          console.log('hello Adrian')
+          document.getElementById(childrenids[index]).checked = true;
+        }
+        index++
       })
-      
+    })
+   
+    document.getElementById('dismiss').addEventListener('click', () => {
+      document.getElementById('participants').innerText = ""
+      peoplelist = [];
+      $('input[type=checkbox]').each(function () {
+        this.checked = false;
+      });
+    })
+    document.getElementById('dismisstop').addEventListener('click', () => {
+      document.getElementById('participants').innerText = ""
+      peoplelist = [];
+      $('input[type=checkbox]').each(function () {
+        this.checked = false;
+      });
     })
 
-   
+    document.getElementById('confirm').addEventListener('click', (e) => {
+      e.preventDefault();
+      $.each($("input[name='people']:checked"), function () {
+        peoplelist.push($(this))
+        document.getElementById('participants').innerText += ' ' + $(this).val();
 
-    function checkboxToDes(grade,name){
-      console.log(grade,name)
-    }
-    function toggleCheckbox(element,grade)
- {
-   console.log("..")
-   //console.log(grade.parent().parent().attr('id'))
-   console.log("  ")
-   if(element.checked===true){
-    console.log(element.value,grade)
-    document.getElementById('activityarea').value += element.value
-   } 
-  
- }
- var peoplelist = [];
- document.getElementById('addtask').addEventListener('click',()=>{
-  var selecteddate = document.getElementById('selecteddate').value
-  console.log("hello " + selecteddate);
-  document.getElementById('dateheader').innerText = selecteddate
-  var text=document.getElementById('activityarea').value
-  document.getElementById('activityparagraph').innerText =text
-  $.each($("input[name='people']:checked"), function() {
-   peoplelist.push($(this))
-   document.getElementById('participants').innerText += ' ' + $(this).val();
-   
-  });
- })
+      })
+      var selecteddate = document.getElementById('selecteddate').value
+      peoplelist.forEach((person) => {
 
- document.getElementById('dismiss').addEventListener('click',()=>{
-  document.getElementById('participants').innerText = ""
-  peoplelist = [];
- })
- document.getElementById('dismisstop').addEventListener('click',()=>{
-  document.getElementById('participants').innerText = ""
-  peoplelist = [];
- })
-
- document.getElementById('confirm').addEventListener('click',(e)=>{
-  e.preventDefault() ;
-  var selecteddate= document.getElementById('selecteddate').value
-  peoplelist.forEach((person)=>{
-    //console.log("Person is : " + person.attr('value'))
-    
-    var student = person.attr('value')
-    var id = person.attr('id')
-   // console.log("grade is : "+ person.parent().parent().attr('id'));
-    //var grade = person.parent().parent().attr('id');
-    var description = document.getElementById('activityarea').value
-    var dateval = now
-    var activity = new Activity(description,dateval,id)
-    ipcRenderer.send('addactivity',activity);
-    
-  })
-  peoplelist = [];
-  $('input[type=checkbox]').each(function() 
-  { 
-          this.checked = false; 
-  }); 
-  document.getElementById('participants').innerText = ""
-  //console.log(activity.date)
-  //ipcRenderer.send('addactivity','hello');
- })
-
+        var student = person.attr('value')
+        var id = person.attr('id')
+        var description = document.getElementById('activityarea').value
+        var dateval = selecteddate
+        var activity = new Activity(description, dateval, id)
+        ipcRenderer.send('addactivity', activity);
+      })
+      peoplelist = [];
+      $('input[type=checkbox]').each(function () {
+        this.checked = false;
+      });
+      document.getElementById('activityparagraph').innerText = ""
+    })
   </script>
 
 </body>
