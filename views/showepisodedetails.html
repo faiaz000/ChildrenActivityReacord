@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <title>Epsoode Details</title>
+</head>
+<body>
+    <button id='back' class="btn">Back</button>
+    <div class="container">
+        <h2 id="name">Name</h2>
+        <button id ="add" style="float:right" class="btn btn-info">Add Activity</button>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <h3>Episode details</h3>
+        <br>
+        <table id="myTable" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Activity</th>
+
+                    <th  scope="col">Date</th>
+                    <th  scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="episodetablebody">
+            </tbody>
+        </table>
+    </div>
+    <script src="../scripts/showepisodedetails.js">
+           
+    </script>
+</body>
+</html>

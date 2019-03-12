@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <!---<script src="node_modules/popper.js/dist/popper.js"></script>-->
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <button id="back" class="btn">Back</button>
+    <div class="container">
+        <h1 style = "color : red " id="dateheader"></h1>
+    </div>
+    <br>
+    <div class="container">
+        <h2>Episodes</h2>
+        <button id = "add" style="float:right"class="btn btn-info">Add activity </button>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <table id="myTable" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+
+                    <th id="Episodes" scope="col">Episodes</th>
+
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="episodetablebody">
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="../scripts/episodes.js"></script>
+<script src="../scripts/sort.js"></script>
+
+</html>

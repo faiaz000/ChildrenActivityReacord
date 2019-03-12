@@ -11,8 +11,8 @@ let selectMonth = document.getElementById("month");
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear);
 
+showCalendar(currentMonth, currentYear);
 
 function next() {
     currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
@@ -110,20 +110,10 @@ const dates = require('date-and-time')
 var now = new Date();
 document.getElementById('presentmonth').innerText = dates.format(now, 'MMM DD');  
 document.getElementById('today').addEventListener('click',()=>{
-    
-   // var todaysDate = dates.format(now, 'MMM');  
-
     ipcRenderer.send('Date');
-
 });
 document.getElementById('yesterday').addEventListener('click',()=>{
-    
-    //var yesterdaysDate = dates.format(now, 'MMM');  
-
-    //console.log(yesterdaysDate)
-
     ipcRenderer.send('previousdate');
-
 });
 
 

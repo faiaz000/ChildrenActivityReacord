@@ -3,7 +3,6 @@ class Activity {
         this.description = description
         this.date = date,
         this.childrenid = childrenid
-
     }
 }
 
