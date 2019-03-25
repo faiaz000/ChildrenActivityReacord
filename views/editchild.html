@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <title>Edit Child</title>
+</head>
+<body>
+    <button id="back" class="btn">Back</button>
+    
+    <h1 style="margin:20px" > Edit Child</h1>
+
+    <div class="container col-4">
+     <form class="form-group">
+        <label>Name:</label>
+        <input class="form-control " type="text" id="name" required placeholder="Enter Name"/>
+        <br>
+        <label >Grade: </label>
+        <br>
+       <!-- <button  style="padding-right:50px; padding-left:50px;text-align:center"class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Grades 
+        </button> -->
+        <select id="selectedgrade" class="form-control">
+                <option value="grade1">grade1</option>
+                <option value="grade2" >grade2</option>
+                <option value="grade3">grade3</option>
+                <option value="grade4">grade4</option>
+                <option value="grade5">grade5</option>
+                <option value="grade6">grade6</option>  
+        </select> 
+        <button style = "margin-top:20px" id="save" class="btn btn-primary col-5" type="submit">Save</button>
+     </form>
+    </div>
+    <script src="../scripts/editchild.js"></script>
+</body>
+
+</html>

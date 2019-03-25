@@ -53,7 +53,7 @@
          let div = document.getElementById(child.grade)
          div.innerHTML += `<label class="checkbox-inline"><input id="${child.id}" name= "people" type="checkbox"  value="${child.name}"> ${child.name} </label>`
          showchildren.push(child.name)
-        childrenids.push(child.id)
+         childrenids.push(child.id)
        })
      });
      
@@ -68,7 +68,7 @@
       let index=0
       showchildren.forEach((item)=>{
         if(text.includes(item)){
-          console.log('hello Adrian')
+          //console.log('hello Adrian')
           document.getElementById(childrenids[index]).checked = true;
         }
         index++

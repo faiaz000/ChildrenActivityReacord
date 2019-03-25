@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <h1>Dashboard</h1>
+</head>
+<body>
+    <button id="back" class="btn">Back</button>
+    <br>
+    <br>
+    <div style ="float:left ; "class="container ">
+        <button style ="float:right" id="addchild" class="btn btn-info">Add Child</button>
+        <div class="dropdown col-3">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Grades
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" id="grade1"onclick="dropdownClick(this)">Grade 1</a>
+              <a class="dropdown-item" id ="grade2"onclick="dropdownClick(this)">Grade 2</a>
+              <a class="dropdown-item" id ="grade3"onclick="dropdownClick(this)">Grade 3</a>
+              <a class="dropdown-item" id ="grade4"onclick="dropdownClick(this)">Grade 4</a>
+              <a class="dropdown-item" id ="grade5"onclick="dropdownClick(this)">Grade 5</a>
+              <a class="dropdown-item" id ="grade6" onclick="dropdownClick(this)">Grade 6</a>
+              <a class="dropdown-item" id ="all" onclick="dropdownClick(this)">All</a>
+              
+            </div>
+          </div>
+
+      </div>
+    <div style="margin-top:50px" class="container">
+        <table id="myTable" class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+
+                    <th scope="col">Grade</th>
+
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="episodetablebody">
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="../scripts/dashboard.js"></script>
+</html>

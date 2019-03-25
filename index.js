@@ -153,7 +153,50 @@ ipcMain.on('showepisodedetails',(e)=>{
         mainWindow.webContents.send('childactivities', episode)
     })
 })
+ipcMain.on('opendashboard',(e)=>{
+    mainWindow.loadURL(`file://${__dirname}/views/dashboard.html`)
+})
+ipcMain.on('showchildrenondashboard',(e)=>{
+    let children = knex.select().from('Children').orderBy('grade')
+    children.then((child) => {
+        mainWindow.webContents.send("childrenlistloaded", child);
+    })
+})
+ipcMain.on('searchbygrade',(e,grade)=>{
+    let childrenbygrade= knex.select().where({grade:grade}).from('Children')
+    childrenbygrade.then((childbygrade)=>{
+        mainWindow.webContents.send('childrenlistloaded',childbygrade)
+    })
+})
+let updatechildid;
+ipcMain.on('updatechild',(e,id)=>{
+   updatechildid=id
+    mainWindow.loadURL(`file://${__dirname}/views/editchild.html`) 
+})
+ipcMain.on('geteditinfo',(e)=>{
+    let editinfo = knex('Children').where({id:updatechildid}).select()
+    editinfo.then((info)=>{
+        mainWindow.webContents.send('editinfo',info)
+    })
+})
+ipcMain.on('updatechildrentorecords',(e,name,grade)=>{
+    e.preventDefault();
+    knex('Children').where({ id:updatechildid}).update({ name: name, grade:grade }).then(() => {
+        mainWindow.loadURL(`file://${__dirname}/views/dashboard.html`)
+    })
+})
+ipcMain.on('addchild',(e)=>{
+    mainWindow.loadURL(`file://${__dirname}/views/addchild.html`)
+})
+ipcMain.on('savechildtorecord',(e,name,grade)=>{
+    e.preventDefault();
+    knex('Children').insert({name:name,grade:grade}).then().catch((err) => { console.log(err); throw err });
+    mainWindow.loadURL(`file://${__dirname}/views/dashboard.html`)
 
+})
+ipcMain.on('deletechild',(e,id)=>{
+    knex('Children').where({ id: id }).del().then().catch((err) => { console.log(err); throw err });
+})
 
 app.on('window-all-closed', () => app.quit());
 

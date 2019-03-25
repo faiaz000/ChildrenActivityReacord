@@ -44,6 +44,7 @@ function deletefunc(itemId,pval){
 var result = confirm("Are you sure you want to delete the selected item ?");
 if (result) {
   document.getElementById(pval.id).parentElement.parentElement.remove();
+ 
   ipcRenderer.send('deleteitem',itemId)
   alert('deleted')
 }

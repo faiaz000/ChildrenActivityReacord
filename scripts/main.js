@@ -120,3 +120,6 @@ document.getElementById('yesterday').addEventListener('click',()=>{
 document.getElementById('episodes').addEventListener('click',()=>{
     ipcRenderer.send('episodes');
 })
+document.getElementById('dashboard').addEventListener('click',()=>{
+    ipcRenderer.send('opendashboard');
+})
