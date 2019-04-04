@@ -19,7 +19,9 @@ app.on('ready', () => {
     mainWindow = new BrowserWindow({
         width: 1000, height: 900, webPreferences: {
             nodeIntegration: true,
-        }
+        },
+        fullscreen: false,
+        resizable: false,
     });
     mainWindow.on('closed', () => {
         win = null
@@ -40,6 +42,7 @@ ipcMain.on('Date', (e, fromquery ) => {
         mainWindow.webContents.executeJavaScript(``, userGesture = true, function () {
         })
     })
+    
 })
 let epi;
 ipcMain.on('fromepisodes',(e,fromepisodes)=>{
@@ -152,6 +155,20 @@ ipcMain.on('showepisodedetails',(e)=>{
     episoderesult.then((episode) => {
         mainWindow.webContents.send('childactivities', episode)
     })
+})
+ipcMain.on('searchepisodesbymonth',(e,month)=>{
+    let thisyear = new Date()
+    let searchstring = dates.format(thisyear, 'YYYY-')
+    searchstring += month +'%'
+   
+    let searchedepisodes = knex.raw('SELECT name, count(childrenid) AS episodes FROM Children as c LEFT OUTER JOIN Activity as a ON c.id=a.childrenid WHERE a.date LIKE ? GROUP BY name ORDER BY count(childrenid) DESC', [searchstring])
+   
+    searchedepisodes.then((item) => {
+
+        item.forEach((ep) => {
+            mainWindow.webContents.send('getepisodes', ep)
+        })
+    }).catch((err) => { console.log(err); throw err })
 })
 ipcMain.on('opendashboard',(e)=>{
     mainWindow.loadURL(`file://${__dirname}/views/dashboard.html`)

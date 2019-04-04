@@ -10,7 +10,9 @@
     <script>window.$ = window.jQuery = require('jquery');</script>
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <!---<script src="node_modules/popper.js/dist/popper.js"></script>-->
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+   
+   
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
@@ -20,12 +22,34 @@
     </div>
     <br>
     <div class="container">
-        <h2>Episodes</h2>
+        <div class="dropdown col-3">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" id ="01" onclick="selectMonth(this)">Jan</a>
+                <a class="dropdown-item" id ="02" onclick="selectMonth(this)">Feb</a>
+                <a class="dropdown-item" id ="03" onclick="selectMonth(this)">Mar</a>
+                <a class="dropdown-item" id ="04" onclick="selectMonth(this)">Apr</a>
+                <a class="dropdown-item" id ="05" onclick="selectMonth(this)">May</a>
+                <a class="dropdown-item" id ="06" onclick="selectMonth(this)">Jun</a>
+                <a class="dropdown-item" id ="07" onclick ="selectMonth(this)">Jul</a>
+                <a class="dropdown-item" id ="08" onclick="selectMonth(this)">Aug</a>
+                <a class="dropdown-item" id ="09" onclick="selectMonth(this)">Sep</a>
+                <a class="dropdown-item" id ="10" onclick="selectMonth(this)">Oct</a>
+                <a class="dropdown-item" id ="11" onclick="selectMonth(this)">Nov</a>
+                <a class="dropdown-item" id ="12" onclick="selectMonth(this)">Dec</a>
+            </div>
+           
+        </div>
+
+        <h2 style="margin-top : 10px; margin-left:14px">Episodes</h2>
         <button id = "add" style="float:right"class="btn btn-info">Add activity </button>
     </div>
     <br>
     <br>
-    <div class="container">
+    
+    <div style="margin-left:20px"class="container">
         <table id="myTable" class="table">
             <thead class="thead-light">
                 <tr>

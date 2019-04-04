@@ -1,4 +1,5 @@
     const electron = require('electron');
+    const toast = require('toastr')
     const { ipcRenderer } = electron
     const Activity = require('../Activity')
     const dates = require('date-and-time')
@@ -111,6 +112,7 @@
       $('input[type=checkbox]').each(function () {
         this.checked = false;
       });
-      
+      toast.success("Activity is saved")
+      document.getElementById('areaactivity').value = ""
     })
 

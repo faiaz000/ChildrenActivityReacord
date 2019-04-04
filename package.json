@@ -17,7 +17,8 @@
     "electron": "^4.0.5",
     "knex": "^0.16.3",
     "popper.js": "^1.14.7",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^4.0.6",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "electron-rebuild": "^1.8.4"

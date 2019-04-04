@@ -16,7 +16,8 @@ window.onload = function () {
    
     document.getElementById('dateheader').innerText = dates.format(now, 'MMM DD');
     let today = dates.format(now, 'YYYY-MM');
-    
+    let month = dates.format(now,'MMM')
+    document.getElementById('dropdownMenuButton').innerText = month
     ipcRenderer.send('episodewindowloaded', today)
 
 }
@@ -34,4 +35,14 @@ ipcRenderer.on('getepisodes', (e, episodes) => {
 })
 function showDetails(value) {
     ipcRenderer.send('showDetails', value)
+}
+function selectMonth(item){
+
+    document.getElementById('dropdownMenuButton').innerText= item.text
+    document.getElementById('episodetablebody').innerHTML = ""
+
+    console.log(item.id)
+   
+   ipcRenderer.send('searchepisodesbymonth',item.id)
+  
 }
