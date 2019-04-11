@@ -18,7 +18,7 @@
   <div class="container"><h1 style = "color : red " id ="dateheader"></h1></div>
   <br>
   <div class="container">
-    <h2>Activity Records</h2>
+    <h2 id="activityrecords">Activity Records</h2>
     <button id = "add" style="float:right"class="btn btn-info">Add activity </button>
   </div>
   <br>
@@ -27,10 +27,10 @@
     <table id = "myTable" class="table">
       <thead class="thead-light">
         <tr>
-          <th scope="col">Name</th>
+          <th id ="thname" scope="col">Name</th>
           <th id="Activity" scope="col">Activity</th>
-          <th scope="col">Date</th>
-          <th scope="col">Actions</th>
+          <th id="thdate" scope="col">Date</th>
+          <th id="thaction"scope="col">Actions</th>
         </tr>
       </thead>
       <tbody id="activitytable">

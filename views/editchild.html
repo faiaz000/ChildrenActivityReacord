@@ -13,25 +13,25 @@
 <body>
     <button id="back" class="btn">Back</button>
     
-    <h1 style="margin:20px" > Edit Child</h1>
+    <h1 id="editchild"style="margin:20px" > Edit Child</h1>
 
     <div class="container col-4">
      <form class="form-group">
-        <label>Name:</label>
+        <label id="lname">Name:</label>
         <input class="form-control " type="text" id="name" required placeholder="Enter Name"/>
         <br>
-        <label >Grade: </label>
+        <label id="lgrade" >Grade: </label>
         <br>
        <!-- <button  style="padding-right:50px; padding-left:50px;text-align:center"class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Grades 
         </button> -->
         <select id="selectedgrade" class="form-control">
-                <option value="grade1">grade1</option>
-                <option value="grade2" >grade2</option>
-                <option value="grade3">grade3</option>
-                <option value="grade4">grade4</option>
-                <option value="grade5">grade5</option>
-                <option value="grade6">grade6</option>  
+            <option id="g1" value="grade1">grade1</option>
+            <option id="g2"value="grade2" >grade2</option>
+            <option id="g3"value="grade3">grade3</option>
+            <option id="g4"value="grade4">grade4</option>
+            <option id="g5"value="grade5">grade5</option>
+            <option id="g6"value="grade6">grade6</option>   
         </select> 
         <button style = "margin-top:20px" id="save" class="btn btn-primary col-5" type="submit">Save</button>
      </form>

@@ -9,7 +9,7 @@
     <script>window.$ = window.jQuery = require('jquery');</script>
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <h1>Dashboard</h1>
+    <h1 id ="dashboard">Dashboard</h1>
 </head>
 <body>
     <button id="back" class="btn">Back</button>
@@ -23,7 +23,7 @@
             </button>
             <br>
             <br>
-             <h3>Children</h3>
+             <h3 id="children">Children</h3>
              
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" id="grade1"onclick="dropdownClick(this)">Grade 1</a>
@@ -40,11 +40,11 @@
         <table id="myTable" class="table">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col">Name</th>
+                    <th id="thname"scope="col">Name</th>
 
-                    <th scope="col">Grade</th>
+                    <th id="thgrade"scope="col">Grade</th>
 
-                    <th scope="col">Actions</th>
+                    <th id="thaction"scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody id="episodetablebody">
@@ -54,4 +54,5 @@
 
 </body>
 <script src="../scripts/dashboard.js"></script>
+<script src="../scripts/sort.js"></script>
 </html>

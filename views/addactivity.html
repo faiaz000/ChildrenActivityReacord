@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Activity</title>
 
 
 
@@ -37,7 +37,7 @@
 
       <div class="container ">
 
-        <h2>Add activity</h2>
+        <h2 id="activityhead">Add activity</h2>
 
         <textarea id="areaactivity" style="width:400px; height:200px" id="comment" rows="10"></textarea>
       </div>
@@ -52,40 +52,40 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Confirm Box</h5>
+              <h5 id="confirmaction"class="modal-title">Confirm Action</h5>
               <button id="dismisstop" type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
               <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <h2>Activity</h2>
-              <h4 id="dateheader"></h4>
+              <h3 id="modalhead">Activity</h3>
+              <h4 id ="dh"></h4>
+              <h5 id="dateheader"></h5>
               <h4 id="participants">Participants: </h4>
               <div id="grade1" class="container">
-                  <h4>grade1</h4>
+                  <h4 id="grdh1">grade1</h4>
           
                 </div>
                 <div id="grade2" class="container">
-                  <h4>grade2</h4>
+                  <h4 id= "grdh2">grade2</h4>
           
                 </div>
                 <div id="grade3" class="container">
-                  <h4>grade3</h4>
+                  <h4 id = "grdh3">grade3</h4>
                 </div>
                 <div id="grade4" class="container">
-                  <h4>grade4</h4>
+                  <h4 id="grdh4">  grade4</h4>
           
                 </div>
                 <div id="grade5" class="container">
-                  <h4>grade5</h4>
+                  <h4 id ="grdh5">grade5</h4>
           
                 </div>
                 <div id="grade6" class="container">
-                  <h4>grade6</h4>
-          
+                  <h4 id="grdh6">grade6</h4>
                 </div>
           
-              <h2>Description</h2>
+              <h2 id= "description" >Description</h2>
               
               <textarea style="width:400px; height:200px"id="activityparagraph"  id="comment" ></textarea>
             </div>
@@ -96,7 +96,7 @@
                 type="submit">Confirm</button>
 
 
-              <button id="dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="dismiss" type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
             </div>
           </div>
         </div>

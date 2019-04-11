@@ -1,6 +1,10 @@
 const electron = require('electron');
 const { app, BrowserWindow, ipcMain } = electron;
 const dates = require('date-and-time')
+const config = require('./src/configs/app.config.js');
+const i18n =  require('./src/configs/i18next.config');
+const menuFactoryService = require('./src/services/menuFactory');
+let testlng='jp';
 var knex = require('knex')({
     client: "sqlite3",
     connection: {
@@ -20,15 +24,29 @@ app.on('ready', () => {
         width: 1000, height: 900, webPreferences: {
             nodeIntegration: true,
         },
+        title: config.title,
         fullscreen: false,
         resizable: false,
     });
     mainWindow.on('closed', () => {
-        win = null
+        mainWindow = null
       })
     mainWindow.loadURL(`file://${__dirname}/views/main.html`);
+    i18n.on('loaded', (loaded) => {
+        i18n.changeLanguage('jp');
+        i18n.off('loaded');
+      });
+     
+    i18n.on('languageChanged', (lng) => {
+        testlng = lng;
+        menuFactoryService.buildMenu(app, mainWindow, i18n);
+        mainWindow.webContents.send('bla',testlng)
+      });
+   
 })
-
+ipcMain.on('getlang',(e)=>{
+    mainWindow.webContents.send('bla',testlng)
+})
 ipcMain.on('Date', (e, fromquery ) => {
     thisdate = 'today'
     if(fromquery!="fromquery"){

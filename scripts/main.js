@@ -1,5 +1,6 @@
 const electron = require('electron')
-const { ipcRenderer } = electron
+const { ipcRenderer } = electron;
+const i18n =  require('../src/configs/i18next.config');
 let today = new Date();
 //console.log(today)
 let currentMonth = today.getMonth();
@@ -122,4 +123,18 @@ document.getElementById('episodes').addEventListener('click',()=>{
 })
 document.getElementById('dashboard').addEventListener('click',()=>{
     ipcRenderer.send('opendashboard');
+})
+window.onload = function(){
+    ipcRenderer.send('getlang')
+}
+ipcRenderer.on('bla',(e,lng)=>{
+    i18n.changeLanguage(lng);
+    i18n.on('languageChanged', () => {
+      document.getElementById('today').innerText = i18n.t('Today'),
+      document.getElementById('yesterday').innerText = i18n.t('Yesterday'),
+      document.getElementById('dashboard').innerText = i18n.t('Dashboard'),
+      document.getElementById('episodes').innerText = i18n.t('Episodes'),
+      document.getElementById('next').innerText = i18n.t('Next'),
+      document.getElementById('previous').innerText = i18n.t('Previous')
+    });
 })

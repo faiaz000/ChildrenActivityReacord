@@ -3,6 +3,7 @@
     const { ipcRenderer } = electron
     const Activity = require('../Activity')
     const dates = require('date-and-time')
+    const i18n =  require('../src/configs/i18next.config')
     let showdate = 'today'
     var now = new Date();
     let showchildren=[];
@@ -34,7 +35,7 @@
       });
   
     window.onload = function () {
-
+    
      ipcRenderer.send('checkdate')
      ipcRenderer.on('showdate',(e,d)=>{
        showdate=d
@@ -57,13 +58,13 @@
          childrenids.push(child.id)
        })
      });
-     
+     ipcRenderer.send('getlang');
     }
    
     document.getElementById('addtask').addEventListener('click', () => {
     
       var selecteddate = document.getElementById('selecteddate').value
-      document.getElementById('dateheader').innerText = "Selected Date : "+ selecteddate
+      document.getElementById('dateheader').innerText =  selecteddate
       var text = document.getElementById('areaactivity').value
       document.getElementById('activityparagraph').innerText = text
       let index=0
@@ -116,3 +117,25 @@
       document.getElementById('areaactivity').value = ""
     })
 
+  ipcRenderer.on('bla',(e,lng)=>{
+    i18n.changeLanguage(lng);
+    i18n.on('languageChanged', () => {
+      document.getElementById('back').innerText = i18n.t('Back'),
+      document.getElementById('activityhead').innerText = i18n.t('Add Activity'),
+      document.getElementById('addtask').innerText = i18n.t('Back'),
+      document.getElementById('modalhead').innerText = i18n.t('Activity'),
+      document.getElementById('description').innerText=i18n.t('Description'),
+      document.getElementById('grdh1').innerText = i18n.t('grade1'),
+      document.getElementById('grdh2').innerText = i18n.t('grade2'),
+      document.getElementById('grdh3').innerText = i18n.t('grade3'),
+      document.getElementById('grdh4').innerText = i18n.t('grade4'),
+      document.getElementById('grdh5').innerText = i18n.t('grade5'),
+      document.getElementById('grdh6').innerText = i18n.t('grade6'),
+      document.getElementById('confirm').innerText = i18n.t('Confirm'),
+      document.getElementById('dismiss').innerText = i18n.t('Dismiss'),
+      document.getElementById('confirmaction').innerText = i18n.t('Confirm Action'),
+      document.getElementById('participants').innerText = i18n.t('Participants')
+      document.getElementById('dh').innerText = i18n.t('Date')
+
+    });
+  })

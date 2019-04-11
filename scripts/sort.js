@@ -4,7 +4,7 @@ for (let c=0; c<th.length;c++){
 }
 function sortfunc(c){
   return function(){
-    console.log(c)
+    
     sortTable(c)
   }
 }
