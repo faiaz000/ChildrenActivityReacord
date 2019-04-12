@@ -5,9 +5,10 @@ Episodes Management System
 
 # Environment
 
-Crossplatform :OSX,Ubuntu,Windows
-Sqlite3
-Electronjs
+#Crossplatform: OSX,Ubuntu,Windows
+
+#Sqlite3
+#Electronjs
 
 # Requirements:
 1. Nodejs
